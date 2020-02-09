@@ -11,6 +11,7 @@ function Index() {
       />
       <button onClick={() => setInput('')}>delete</button>
       <div>{input}</div>
+      <ul></ul>
     </>
   )
 }
