@@ -1,23 +1,21 @@
 import { useState } from 'react'
 
-function TodoForm() {
+function TodoForm({ onSubmit }) {
   const [input, setInput] = useState('')
   const changeInput = event => setInput(event.target.value)
+  const submit = () => onSubmit(input)
   return (
     <>
       <input type="text" onChange={changeInput} />
-      <button onClick={() => setTodos([{ id: +new Date(), input }, ...todos])}>
-        add
-      </button>
+      <button onClick={submit}>add</button>
     </>
   )
 }
-function TodoList() {
-  const [todos, setTodos] = useState([])
+function TodoList({ todoslist }) {
   return (
     <>
       <ul>
-        {todos.map(todo => (
+        {todoslist.map(todo => (
           <li key={todo.id}> {todo.input}</li>
         ))}
       </ul>
@@ -25,6 +23,13 @@ function TodoList() {
   )
 }
 function Index() {
-  return <></>
+  const [todos, setTodos] = useState([])
+  const addTodo = input => setTodos([{ id: +new Date(), input }, ...todos])
+  return (
+    <>
+      <TodoForm onSubmit={addTodo}></TodoForm>
+      <TodoList todoslist={todos}></TodoList>
+    </>
+  )
 }
 export default Index
